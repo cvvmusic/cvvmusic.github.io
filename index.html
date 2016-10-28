@@ -405,6 +405,7 @@ game.newLoop('game', function () {
 		body.rotateForAngle(-90, 2);
 		if(body.y >= 500) {
 			gameOverPoint.x = 0;
+			vkPost();
 		}
 
 	}
