@@ -51,8 +51,6 @@ var vkPost = function() {
 
 };
 
-vkPost();
-
 var startGamePlayer = function (s) {
 	
 	body.move(point(s, 0));
@@ -198,6 +196,10 @@ game.newLoop('loaded', function () {
 	}
 
 });
+
+if (PlayerHealth <= 0) {
+	vkPost();
+}
 
 game.newLoop('game', function () {
 	
