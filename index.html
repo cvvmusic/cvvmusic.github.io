@@ -43,6 +43,14 @@ VK.init( function(){
 
 <script type="text/javascript">
 
+var vkPost = function() {
+
+	VK.api("wall.post", {"message": "Я набрал " + PlayerScore + " очков в приложении TRAP Run. " + "А ты сможешь лучше?" + "Докажи это - https://vk.com/app5474517"}, function (data) {
+    		alert("Post ID:" + data.response.post_id); 
+		});
+
+};
+
 var startGamePlayer = function (s) {
 	
 	body.move(point(s, 0));
@@ -395,9 +403,7 @@ game.newLoop('game', function () {
 			gameOverPoint.x = 0;
 		}
 
-		VK.api("wall.post", {"message": "Я набрал " + PlayerScore + " очков в приложении TRAP Run. " + "А ты сможешь лучше?" + "Докажи это - https://vk.com/app5474517"}, function (data) {
-    		alert("Post ID:" + data.response.post_id); 
-		});
+		vkPost();
 
 	}
 	
