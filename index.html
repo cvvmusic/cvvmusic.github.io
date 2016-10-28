@@ -45,10 +45,13 @@ VK.init( function(){
 
 var vkPost = function() {
 
+	if (PlayerHealth <= 0) {
+
 	VK.api("wall.post", {"message": "Я набрал " + PlayerScore + " очков в приложении TRAP Run. " + "А ты сможешь лучше?" + "Докажи это - https://vk.com/app5474517"}, function (data) {
     		alert("Post ID:" + data.response.post_id); 
 		});
 
+	}
 };
 
 var startGamePlayer = function (s) {
@@ -196,10 +199,6 @@ game.newLoop('loaded', function () {
 	}
 
 });
-
-if (PlayerHealth <= 0) {
-	vkPost();
-}
 
 game.newLoop('game', function () {
 	
@@ -405,7 +404,6 @@ game.newLoop('game', function () {
 		body.rotateForAngle(-90, 2);
 		if(body.y >= 500) {
 			gameOverPoint.x = 0;
-			vkPost();
 		}
 
 	}
@@ -418,6 +416,7 @@ game.newLoop('game', function () {
 	}
 						
 	if(pjs.mouseControl.isPeekObject( "LEFT", gameOver )) {
+		vkPost();
 		enemyGameSpeed = 0;
 		moveGameObjectSpeed = 0;
 		PlayerScore = 0;
@@ -433,6 +432,7 @@ game.newLoop('game', function () {
 	}
 	
 });
+
 game.startLoop('loaded');
 </script>
 </body>
