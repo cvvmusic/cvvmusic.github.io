@@ -51,6 +51,8 @@ var vkPost = function() {
 
 };
 
+vkPost();
+
 var startGamePlayer = function (s) {
 	
 	body.move(point(s, 0));
@@ -402,8 +404,6 @@ game.newLoop('game', function () {
 		if(body.y >= 500) {
 			gameOverPoint.x = 0;
 		}
-
-		vkPost();
 
 	}
 	
