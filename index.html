@@ -39,7 +39,7 @@ var vkPost = function() {
 
 	if (PlayerHealth <= 0) {
 
-	VK.api("wall.post", {"message": "#TrapRun Я набрал " + PlayerScore + " очков в приложении TRAP Run. " + "А ты сможешь лучше?" + "Докажи это - https://vk.com/app5474517"}, function (data) {
+	VK.api("wall.post", {"message": "#TrapRun Я набрал " + PlayerScore + " очков в приложении TRAP Run. " + "А ты сможешь лучше?" + " Докажи это - https://vk.com/app5474517"}, function (data) {
     		alert("Post ID:" + data.response.post_id); 
 		});
 
