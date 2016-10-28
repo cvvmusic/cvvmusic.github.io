@@ -58,7 +58,7 @@ var hand = game.newImageObject({
 	file : 'img/player/hand.png'
 });
 
-var fireObject = game.newImageObject({
+var fireObject = game.newBaseObject({
 	x : 850, y : 0,
 	h : 480, w : 800,
 });
@@ -121,7 +121,7 @@ var textHelp = game.newTextObject({
 
 	font : "Courier New",
 	align : "center",
-	text : "Ну что, погнали?",
+	text : "СТАРТ",
 	size : 20,
 	x : -400, y : 240,
 	color : "#cccccc",
@@ -136,6 +136,13 @@ var textHelpPoint = game.newBaseObject({
 var plusFriends = game.newImageObject({
 	x : 760, y : 10,
 	file : 'img/plusfriends.png'
+});
+
+var pools = 1;
+
+var poolsImage = game.newImageObject({
+	x : 740, y : 10,
+	file : 'img/pools.png'
 });
 
 var gameOver = game.newTextObject({

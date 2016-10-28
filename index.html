@@ -176,6 +176,8 @@ var gameMusic = pjs.audio.newAudio("sound/gamemusic.mp3", 0.2);
 	
 var loaded = pjs.resources;
 
+var actionGame = 0;
+
 game.newLoop('loaded', function () {
 
 	loadedBg.draw();
@@ -221,6 +223,7 @@ game.newLoop('game', function () {
 	textHelpPoint.draw();
 	gameOver.draw();
 	gameOverPoint.draw();
+	poolsImage.draw();
 	
 	var PlayerHealthText = brush.drawText({
 		font : "Courier New",
@@ -241,6 +244,14 @@ game.newLoop('game', function () {
 		color : "white",
 	});
 	
+	var PlayerPools = brush.drawText({
+		font : "Courier New",
+		align : "left",
+		text : "x" + pools,
+		size : 15,
+		x : 756, y : 15,
+		color : "white",
+	});
 	
 	
 	if(pjs.mouseControl.isInStatic( displayObject.getStaticBox() )) {
@@ -256,6 +267,7 @@ game.newLoop('game', function () {
 			friendlyCarPoint.x = 300;
 			menuButton.play();
 			stP = 1;
+			actionGame = 1;
 		}
 				
 		if(pjs.mouseControl.isInStatic( textHelp.getStaticBox() )) {
@@ -264,28 +276,44 @@ game.newLoop('game', function () {
 		else {
 			textHelp.color = "#cccccc";
 		}
-						
-		if(pjs.mouseControl.isPeekObject( "LEFT", fireObject )) {
-			if(pjs.mouseControl.isPeekObject( "LEFT", enemyBody )) {
-				enemyHealth = enemyHealth - 1;
-			}
 		
-			if(pjs.mouseControl.isPeekObject( "LEFT", enemyHand )) {
-				enemyHealth = enemyHealth - 0.5;
+
+		if(actionGame == 1) {				
+			if(pjs.mouseControl.isPeekObject( "LEFT", fireObject )) {
+				pools = pools - 1;
+				houses3.y = 104;
+				houses4.y = 104;
+				weaFire.replay();
+				bangFire.setVisible( true );
+				
+				if(pjs.mouseControl.isPeekObject( "LEFT", enemyBody )) {
+					enemyHealth = enemyHealth - 1;
+				}
+			
+				if(pjs.mouseControl.isPeekObject( "LEFT", enemyHand )) {
+					enemyHealth = enemyHealth - 0.5;
+				}
+				
 			}
-			houses3.y = 104;
-			houses4.y = 104;
-			weaFire.replay();
-			bangFire.setVisible( true );
+			else {
+				houses3.y = 584;
+				houses4.y = 584;
+				bangFire.setVisible( false );
+			}
 		}
-		else{
+		else {
 			houses3.y = 584;
 			houses4.y = 584;
 			bangFire.setVisible( false );
 		}
-					
+
 	}
 	
+	if (pools <= 0) {
+		actionGame = 0;
+		pools = 0;
+	}
+
 	if(friendlyCar.x >= 1100) {
 		enemyGameBollean = true;
 		friendlyCar.setVisible (false);	
@@ -348,10 +376,12 @@ game.newLoop('game', function () {
 	}
 	
 	if(pjs.mouseControl.isPeekObject( "LEFT", textHelp )){
+		actionGame = 1;
 		PlayerScoreSaver = 0;
 		friendlyCarPoint.x = 1500;
 		cursorFun = 1;
-		weaReset.play();		
+		weaReset.play();
+		pools = 18;		
 	}
 	
 	if(cursorFun == 1){
@@ -401,7 +431,7 @@ game.newLoop('game', function () {
 	}
 	
 	if(pjs.mouseControl.isInStatic( gameOver.getStaticBox() )) {
-		gameOver.color = "#white";
+		gameOver.color = "white";
 	}
 	else {
 		gameOver.color = "#aa0800";
@@ -409,6 +439,7 @@ game.newLoop('game', function () {
 						
 	if(pjs.mouseControl.isPeekObject( "LEFT", gameOver )) {
 		vkPost();
+		pools = 1;
 		enemyGameSpeed = 0;
 		moveGameObjectSpeed = 0;
 		PlayerScore = 0;
