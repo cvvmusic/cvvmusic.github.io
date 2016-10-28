@@ -171,7 +171,8 @@ var weaFire = pjs.wAudio.newAudio("sound/fire.wav", 0.5);
 var weaFire2 = pjs.wAudio.newAudio("sound/fire.wav", 0.5);
 var weaReset = pjs.wAudio.newAudio("sound/reset.wav", 0.5);
 var menuButton = pjs.wAudio.newAudio("sound/menubutton.mp3", 0.5);
-var gameMusic = pjs.audio.newAudio("sound/gamemusic.mp3", 0.2);
+var gameMusic = pjs.audio.newAudio("sound/gamemusic.mp3", 0.1);
+var cockFire = pjs.wAudio.newAudio("sound/cock.wav", 0.2);
 
 	
 var loaded = pjs.resources;
@@ -294,6 +295,8 @@ game.newLoop('game', function () {
 					enemyHealth = enemyHealth - 0.5;
 				}
 				
+
+
 			}
 			else {
 				houses3.y = 584;
@@ -306,12 +309,15 @@ game.newLoop('game', function () {
 			houses4.y = 584;
 			bangFire.setVisible( false );
 		}
-
+		
 	}
 	
 	if (pools <= 0) {
 		actionGame = 0;
 		pools = 0;
+		if(pjs.mouseControl.isPeekObject( "LEFT", fireObject )) {
+			cockFire.replay();
+		}
 	}
 
 	if(friendlyCar.x >= 1100) {
