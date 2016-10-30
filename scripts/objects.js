@@ -98,13 +98,13 @@ var friendlyCarPoint = game.newBaseObject({
 	w : 222, h : 222,
 });
 
-var PlayerHealth = 3;
+var PlayerHealth = 1;
 
 var PlayerScore = 0;
 var PlayerScoreSaver = 0;
 
 //Враги
-var enemyHealth = 3;
+var enemyHealth = 1;
 
 var enemyBody = game.newImageObject({
 	x : 1528, y : 160,     

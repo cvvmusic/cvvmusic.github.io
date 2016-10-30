@@ -225,23 +225,13 @@ game.newLoop('game', function () {
 	gameOver.draw();
 	gameOverPoint.draw();
 	poolsImage.draw();
-	
-	var PlayerHealthText = brush.drawText({
-		font : "Courier New",
-		align : "left",
-		text : "Жизнь: " + PlayerHealth,
-		size : 20,
-		x : 10, y : 10,
-		color : "white",
-	});
-	
 		
 	var PlayerScoreText = brush.drawText({
 		font : "Courier New",
 		align : "left",
 		text : "Очки: " + PlayerScore,
 		size : 20,
-		x : 10, y : 30,
+		x : 10, y : 10,
 		color : "white",
 	});
 	
@@ -292,7 +282,7 @@ game.newLoop('game', function () {
 				}
 			
 				if(pjs.mouseControl.isPeekObject( "LEFT", enemyHand )) {
-					enemyHealth = enemyHealth - 0.5;
+					enemyHealth = enemyHealth - 0.2;
 				}
 				
 
@@ -343,7 +333,7 @@ game.newLoop('game', function () {
 		
 		PlayerScore = PlayerScore + 1;
 		PlayerScoreSaver = PlayerScoreSaver + 1;
-		enemyHealth = 3;
+		enemyHealth = 1;
 		enemyBody.move( point(0, 0) );
 		enemyHand.move( point(0, 0) );
 		enemyBody.y = 160;
@@ -364,10 +354,10 @@ game.newLoop('game', function () {
 		
 		if(friendlyCar.x <= -820) {
 			friendlyCar.setVisible (true);
-			PlayerHealth = 3;
+			PlayerHealth = 1;
 		}	
 		
-		if(PlayerHealth == 3) {
+		if(PlayerHealth == 1) {
 			cursorFun = 0;
 			friendlyCarPoint.x = 300;
 		}
@@ -387,7 +377,7 @@ game.newLoop('game', function () {
 		friendlyCarPoint.x = 1500;
 		cursorFun = 1;
 		weaReset.play();
-		pools = 18;		
+		pools = 6;		
 	}
 	
 	if(cursorFun == 1){
@@ -409,7 +399,7 @@ game.newLoop('game', function () {
 	}
 	
 	if(cursorFun == 1){
-		if(enemyBody.x <= 650) {
+		if(enemyBody.x <= 600) {
 			if(enemyBody.y <= 158.1) {
 				weaFire2.replay();
 				PlayerHealth = PlayerHealth - 1;
