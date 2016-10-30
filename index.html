@@ -240,10 +240,30 @@ game.newLoop('game', function () {
 	if(pjs.mouseControl.isInStatic( displayObject.getStaticBox() )) {
 		
 		if(pjs.mouseControl.isInStatic( startButton.getStaticBox() )) {
-			startButton2.y = 150;
+
+			startButton.alpha = startButton.alpha - 0.2;
+			if (startButton.alpha <= 0) {
+				startButton.alpha = 0;
+			}
+
+			startButton2.alpha = startButton2.alpha + 0.2;
+			if (startButton2.alpha >= 1) {
+				startButton2.alpha = 1;
+			}
+
 		}
 		else {
-			startButton2.y = -182;
+
+			startButton.alpha = startButton.alpha + 0.2;
+			if (startButton.alpha >= 1) {
+				startButton.alpha = 1;
+			}
+
+			startButton2.alpha = startButton2.alpha - 0.2;
+			if (startButton2.alpha <= 0) {
+				startButton2.alpha = 0;
+			}
+
 		}
 		
 		if(pjs.mouseControl.isPeekObject( "LEFT", startButton )) {
