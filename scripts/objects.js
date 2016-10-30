@@ -71,11 +71,13 @@ var displayObject = game.newImageObject({
 var startButton = game.newImageObject({
 	x : 279.5, y : 150,
 	file : 'img/button/start1.png',
+	alpha : 1
 });
 
 var startButton2 = game.newImageObject({
-	x : 279.5, y : -182,
+	x : 279.5, y : 150,
 	file : 'img/button/start2.png',
+	alpha : 0
 });
 
 var bangFire = game.newImageObject({
