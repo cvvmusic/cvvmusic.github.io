@@ -225,6 +225,8 @@ game.newLoop('game', function () {
 	gameOver.draw();
 	gameOverPoint.draw();
 	poolsImage.draw();
+	poolsImage2.draw();
+	poolsInfo.draw();
 
 	brush.drawText ({
 		font : "Courier New",
@@ -232,15 +234,6 @@ game.newLoop('game', function () {
 		text : "Очки: " + PlayerScore,
 		size : 20,
 		x : 10, y : 10,
-		color : "white",
-	});
-	
-	brush.drawText ({
-		font : "Courier New",
-		align : "left",
-		text : "x" + pools,
-		size : 15,
-		x : 756, y : 15,
 		color : "white",
 	});
 	
@@ -271,6 +264,7 @@ game.newLoop('game', function () {
 		if(actionGame == 1) {				
 			if(pjs.mouseControl.isPeekObject( "LEFT", fireObject )) {
 				pools = pools - 1;
+				poolsInfo.text = "x" + pools;
 				houses3.y = 104;
 				houses4.y = 104;
 				weaFire.replay();
@@ -302,11 +296,20 @@ game.newLoop('game', function () {
 	}
 	
 	if (pools <= 0) {
+		poolsImage2.setVisible (true);
+		poolsImage.setVisible (false);
 		actionGame = 0;
 		pools = 0;
+		poolsInfo.color = "red";
+		poolsInfo.text = "x" + pools;
 		if(pjs.mouseControl.isPeekObject( "LEFT", fireObject )) {
 			cockFire.replay();
 		}
+	}
+	else {
+		poolsImage2.setVisible (false);
+		poolsImage.setVisible (true);
+		poolsInfo.color = "white";
 	}
 
 	if(friendlyCar.x >= 1100) {
@@ -378,6 +381,7 @@ game.newLoop('game', function () {
 		cursorFun = 1;
 		weaReset.play();
 		pools = 6;
+		poolsInfo.text = "x" + pools;
 		textHelp.text = "РАУНД ";
 		rounds = rounds + 1;		
 	}
@@ -401,8 +405,9 @@ game.newLoop('game', function () {
 	}
 	
 	if(cursorFun == 1){
-		if(enemyBody.x <= 600) {
-			if(enemyBody.y <= 158.1) {
+		if(enemyBody.x <= 625.5) {
+			enemyBody.x = 624;
+			if(enemyBody.x == 624) {
 				weaFire2.replay();
 				PlayerHealth = PlayerHealth - 1;
 				houses3.y = 104;

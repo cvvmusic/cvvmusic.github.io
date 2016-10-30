@@ -147,6 +147,20 @@ var poolsImage = game.newImageObject({
 	file : 'img/pools.png'
 });
 
+var poolsImage2 = game.newImageObject({
+	x : 740, y : 10,
+	file : 'img/pools2.png'
+});
+
+var poolsInfo = game.newTextObject({
+	font : "Courier New",
+	align : "left",
+	text : "x" + pools,
+	size : 15,
+	x : 756, y : 15,
+	color : "white",
+});
+
 var gameOver = game.newTextObject({
 
 	font : "Courier New",
