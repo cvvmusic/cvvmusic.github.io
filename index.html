@@ -225,8 +225,8 @@ game.newLoop('game', function () {
 	gameOver.draw();
 	gameOverPoint.draw();
 	poolsImage.draw();
-		
-	var PlayerScoreText = brush.drawText({
+
+	brush.drawText ({
 		font : "Courier New",
 		align : "left",
 		text : "Очки: " + PlayerScore,
@@ -235,7 +235,7 @@ game.newLoop('game', function () {
 		color : "white",
 	});
 	
-	var PlayerPools = brush.drawText({
+	brush.drawText ({
 		font : "Courier New",
 		align : "left",
 		text : "x" + pools,
@@ -243,7 +243,6 @@ game.newLoop('game', function () {
 		x : 756, y : 15,
 		color : "white",
 	});
-	
 	
 	if(pjs.mouseControl.isInStatic( displayObject.getStaticBox() )) {
 		
@@ -282,7 +281,7 @@ game.newLoop('game', function () {
 				}
 			
 				if(pjs.mouseControl.isPeekObject( "LEFT", enemyHand )) {
-					enemyHealth = enemyHealth - 0.2;
+					enemyHealth = enemyHealth - 0.5;
 				}
 				
 
@@ -346,6 +345,7 @@ game.newLoop('game', function () {
 	}
 	
 	if(PlayerScoreSaver == 5) {
+		textHelp.text = "РАУНД " + rounds;
 		enemyBody.x = 1528; 
 		enemyHand.x = 1583;
 		cursorMouse.x = 33; 
@@ -377,7 +377,9 @@ game.newLoop('game', function () {
 		friendlyCarPoint.x = 1500;
 		cursorFun = 1;
 		weaReset.play();
-		pools = 6;		
+		pools = 6;
+		textHelp.text = "РАУНД ";
+		rounds = rounds + 1;		
 	}
 	
 	if(cursorFun == 1){
@@ -434,6 +436,8 @@ game.newLoop('game', function () {
 	}
 						
 	if(pjs.mouseControl.isPeekObject( "LEFT", gameOver )) {
+		rounds = 1;
+		textHelp.text = "РАУНД " + rounds;
 		vkPost();
 		pools = 1;
 		enemyGameSpeed = 0;

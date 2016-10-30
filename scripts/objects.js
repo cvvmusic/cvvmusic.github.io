@@ -117,15 +117,17 @@ var enemyHand = game.newImageObject({
 	file : 'img/enemy/hand.png'
 });
 
+var rounds = 1;
+
 var textHelp = game.newTextObject({
 
 	font : "Courier New",
 	align : "center",
-	text : "СТАРТ",
+	text : "РАУНД " + rounds,
 	size : 20,
 	x : -400, y : 240,
 	color : "#cccccc",
-	
+		
 });
 
 var textHelpPoint = game.newBaseObject({
