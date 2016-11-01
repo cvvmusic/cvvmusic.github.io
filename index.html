@@ -20,9 +20,12 @@ var game = new Phaser.Game(
             create: create,
             update: update
         }
-    );
+);
+
+var textUserId;
 
 function preload() {
+
 	game.load.image('profile', 'img/profile/profile.jpg');
 	game.load.image('window', 'img/profile/window.jpg');
 	game.load.image('button', 'img/profile/button.jpg');
@@ -34,13 +37,13 @@ function create() {
 	game.add.sprite(250, 225,'profile');
 	game.add.sprite(250, 255,'window');
 	game.add.sprite(250, 405,'button');
-	game.add.sprite(255, 260, userAvatar);
+	textUserId = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: 'white' });
 
 }
 
 function update() {
 
-
+	textUserId.text = "ID " + userId;
 
 }
 

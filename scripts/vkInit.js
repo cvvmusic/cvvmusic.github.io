@@ -1,13 +1,13 @@
 var userAvatar;
 var first_name;
 var last_name;
-var id;
+var userId;
 
 VK.init(function() {
 
 	VK.api("users.get", {"fields": "photo_200"}, function (data) {
 
-    	userAvatar = data.response['0'].photo_200;
+    	userId.setText(data.response['0'].id);
 
 	});
     
