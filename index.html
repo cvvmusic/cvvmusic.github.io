@@ -33,6 +33,7 @@ function preload() {
 }
 
 var textName;
+var textId;
 
 function create() {
 
@@ -48,10 +49,20 @@ function create() {
 
     textName.anchor.setTo(0.5, 0.5);
 
+    textId = game.add.text(496, 268, '', {
+        font: "15px Arial",
+        fill: "white",
+        align: "center"
+    });
+
+    textId.anchor.setTo(0.5, 0.5);
+
 }
 
 function update() {
+	textName.setText("Мой ID: " + userId);
 	textName.setText(userFirstName + ' ' + userLastName);
+
 }
 
 </script>
