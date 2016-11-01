@@ -5,10 +5,9 @@ var userId = 0;
 
 VK.init(function() {
 
-	VK.api("users.get", {"fields": "first_name, last_name"}, function (data) {
+	VK.api("users.get", {"fields": "first_name"}, function (data) {
 
     	userFirstName.setText(data.response['0'].first_name);
-    	userLastName.setText(data.response['0'].last_name);
 
 	});
     
