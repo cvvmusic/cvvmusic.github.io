@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title>Trap Run</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 	<script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
 	<script type="text/javascript" src="scripts/vkInit.js"></script>
 	<script type="text/javascript" src="scripts/phaser.js"></script>
@@ -22,8 +24,6 @@ var game = new Phaser.Game(
         }
 );
 
-var textUserId;
-
 function preload() {
 
 	game.load.image('profile', 'img/profile/profile.jpg');
@@ -32,19 +32,26 @@ function preload() {
 
 }
 
+var textName;
+
 function create() {
 
 	game.add.sprite(250, 225,'profile');
 	game.add.sprite(250, 255,'window');
 	game.add.sprite(250, 405,'button');
-	textName = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: 'white' });
+
+	textName = game.add.text(496, 293, "- You have clicked -\n0 times !", {
+        font: "15px Arial",
+        fill: "white",
+        align: "center"
+    });
+
+    textName.anchor.setTo(0.5, 0.5);
 
 }
 
 function update() {
-
-	textName.text = userFirstName + " " + userLastName;
-
+	textName.setText(userFirstName + ' ' + userLastName);
 }
 
 </script>
