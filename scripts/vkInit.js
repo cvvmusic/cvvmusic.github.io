@@ -5,10 +5,10 @@ var userId = 0;
 
 VK.init(function() {
 
-	VK.api("users.get", {"fields": photo_200, id}, function (data) {
+	VK.api("users.get", {"fields": "first_name, last_name"}, function (data) {
 
-    	userFirstName.setText(data.response.first_name);
-    	userLastName.setText(data.response.last_name);
+    	userFirstName.setText(data.response['0'].first_name);
+    	userLastName.setText(data.response['0'].last_name);
 
 	});
     
