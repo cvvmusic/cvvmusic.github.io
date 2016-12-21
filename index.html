@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+	<title>TRAP RUN</title>
+</head>
+<body>
+<script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
+<script type="text/javascript" src="https://ad.mail.ru/static/vkadman.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://js.appscentrum.com/scr/preroll.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+  VK.init(function() {
+  	var user_id = 30402082;   //id пользователя 
+    var app_id = 5474517;  //id вашего приложения
+    var a=new VKAdman();
+     a.onNoAds(function(){console.log("Adman: No ads");});
+     a.onStarted(function(){console.log("Adman: Started");});
+     a.onCompleted(function(){console.log("Adman: Completed");});
+     a.onSkipped(function(){console.log("Adman: Skipped");});
+     a.onClicked(function(){console.log("Adman: Clicked");});
+     // a.setupPreroll(app_id, {preview: 8}); //для проверки корректности работы рекламы
+     a.setupPreroll(app_id);
+     admanStat(app_id, user_id);
+  }, function() {
+     // API initialization failed
+     // Can reload page here
+}, '5.59');
+</script>
+
+<script type="text/javascript" src="scripts/point.js"></script>
+<script type="text/javascript" src="scripts/engine.js"></script>
+<script type="text/javascript" src="scripts/objects.js"></script>
+
+<script type="text/javascript">
+
+var vkPost = function() {
+
+	if (PlayerHealth <= 0) {
+
+	VK.api("wall.post", {"message": "#TrapRun Я набрал " + PlayerScore + " очков в приложении TRAP Run. " + "А ты сможешь лучше?" + " Докажи это - https://vk.com/app5474517"}, function (data) {
+    		alert("Post ID:" + data.response.post_id); 
+		});
+
+	}
+};
+
+var startGamePlayer = function (s) {
+	
+	body.move(point(s, 0));
+	if(body.x >= 30) {
+		body.x = 31;
+	}
+	
+	hand.move(point(s, 0));
+	if(hand.x >= 30) {
+		hand.x = 31;
+	}
+		
+};
+
+var enemyGameBollean = false;
+var enemyGameSpeed = 0;
+var enemyGame = function (s) {
+	enemyBody.move(point(-s+enemyGameSpeed, 0));
+	enemyHand.move(point(-s+enemyGameSpeed, 0));
+};
+
+var cursorFun = 0;
+
+var moveGameObjectSpeed = 0;
+
+var moveGameObject = function (s) {
+	
+	bgd1.move(point(-s / 5 + moveGameObjectSpeed, 0));
+	bgd2.move(point(-s / 5 + moveGameObjectSpeed, 0));
+	
+	houses1.move(point(-s / 2 + moveGameObjectSpeed, 0));
+	houses2.move(point(-s / 2 + moveGameObjectSpeed, 0));
+	
+	houses3.move(point(-s / 2 + moveGameObjectSpeed, 0));
+	houses4.move(point(-s / 2 + moveGameObjectSpeed, 0));
+	
+	if(bgd1.x + bgd1.w < 0) {
+		bgd1.x = bgd2.x + bgd2.w;
+	}
+	
+	if(bgd2.x + bgd2.w < 0) {
+		bgd2.x = bgd1.x + bgd1.w;
+	}
+	
+	if(houses1.x + houses1.w < 0) {
+		houses1.x = houses2.x + houses2.w;
+	}
+	
+	if(houses2.x + houses2.w < 0) {
+		houses2.x = houses1.x + houses1.w;
+	}
+	
+	if(houses3.x + houses3.w < 0) {
+		houses3.x = houses4.x + houses4.w;
+	}
+	
+	if(houses4.x + houses4.w < 0) {
+		houses4.x = houses3.x + houses3.w;
+	}
+	
+	hand.center.x = -140;
+	enemyHand.center.x = -140;
+	hand.rotate( cursorMouse.getPosition( 1 ) );
+	
+	enemyHand.rotate( body.getPosition( 1 ) );	
+
+	bangFire.center.x = -230;
+	bangFire.rotate( cursorMouse.getPosition( 1 ) );
+	friendlyCar.moveTimeC( friendlyCarPoint.getPosition(1), 67);
+	textHelp.moveTimeC( textHelpPoint.getPosition(1), 5);
+	gameOver.moveTimeC( gameOverPoint.getPosition(1), 23);
+	cursorMouse.rotateForAngle(360, 1);
+		
+};
+
+var dy = 1;
+var dy2 = 1;
+var dy3 = 1.4;
+var dy4 = 1.41;
+
+var moveGamePlayer = function (s) {
+	body.move(point(0, s*dy));
+	
+	if (body.y > 170) {
+		dy = -1;
+	}
+	else if (body.y < 158) {
+		dy = 1;
+	}
+	
+	hand.move(point(0, s*dy2));
+	
+	if (hand.y > 310) {
+		dy2 = -1;
+	}
+	else if (hand.y < 298) {
+		dy2 = 1;
+	}
+	
+	enemyBody.move(point(0, s*dy3));
+	
+	if (enemyBody.y > 170) {
+		dy3 = -1;
+	}
+	else if (enemyBody.y < 158) {
+		dy3 = 1;
+	}
+	
+	enemyHand.move(point(0, s*dy4));
+	
+	if (enemyHand.y > 310) {
+		dy4 = -1;
+	}
+	else if (enemyHand.y < 298) {
+		dy4 = 1;
+	}
+	
+};
+
+var stP = 0;
+
+var weaFire = pjs.wAudio.newAudio("sound/fire.wav", 0.5);
+var weaFire2 = pjs.wAudio.newAudio("sound/fire.wav", 0.5);
+var weaReset = pjs.wAudio.newAudio("sound/reset.wav", 0.5);
+var menuButton = pjs.wAudio.newAudio("sound/menubutton.mp3", 0.5);
+var gameMusic = pjs.audio.newAudio("sound/gamemusic.mp3", 0.1);
+var cockFire = pjs.wAudio.newAudio("sound/cock.wav", 0.2);
+
+	
+var loaded = pjs.resources;
+
+var actionGame = 0;
+
+game.newLoop('loaded', function () {
+
+	loadedBg.draw();
+	rotateLoaded.draw();
+
+	rotateLoaded.rotateForAngle(360, 2);
+    
+    loaded.getProgress();
+	console.log(loaded.getProgress());
+
+	if (loaded.getProgress() >= 92) {
+		game.startLoop('game');
+	}
+
+});
+
+game.newLoop('game', function () {
+	
+	game.fill('#000000');
+	displayObject.draw();
+	fireObject.draw();
+	bgd1.draw();
+	bgd2.draw();
+	houses1.draw();
+	houses2.draw();
+	houses3.draw();
+	houses4.draw();
+	textHelp.draw();
+	friendlyCar.draw();
+	body.draw();
+	hand.draw();
+	
+	enemyBody.draw();
+	enemyHand.draw();
+	
+	bangFire.draw();
+	moveGameObject(2);
+	moveGamePlayer(0.7);
+	startButton.draw();
+	startButton2.draw();
+	cursorMouse.draw();
+	friendlyCarPoint.draw();
+	textHelpPoint.draw();
+	gameOver.draw();
+	gameOverPoint.draw();
+	poolsImage.draw();
+	poolsImage2.draw();
+	poolsInfo.draw();
+
+	brush.drawText ({
+		font : "Courier New",
+		align : "left",
+		text : "Очки: " + PlayerScore,
+		size : 20,
+		x : 10, y : 10,
+		color : "white",
+	});
+	
+	if(pjs.mouseControl.isInStatic( displayObject.getStaticBox() )) {
+		
+		if(pjs.mouseControl.isInStatic( startButton.getStaticBox() )) {
+
+			startButton.alpha = startButton.alpha - 0.2;
+			if (startButton.alpha <= 0) {
+				startButton.alpha = 0;
+			}
+
+			startButton2.alpha = startButton2.alpha + 0.2;
+			if (startButton2.alpha >= 1) {
+				startButton2.alpha = 1;
+			}
+
+		}
+		else {
+
+			startButton.alpha = startButton.alpha + 0.2;
+			if (startButton.alpha >= 1) {
+				startButton.alpha = 1;
+			}
+
+			startButton2.alpha = startButton2.alpha - 0.2;
+			if (startButton2.alpha <= 0) {
+				startButton2.alpha = 0;
+			}
+
+		}
+		
+		if(pjs.mouseControl.isPeekObject( "LEFT", startButton )) {
+			friendlyCarPoint.x = 300;
+			menuButton.play();
+			stP = 1;
+			actionGame = 1;
+		}
+				
+		if(pjs.mouseControl.isInStatic( textHelp.getStaticBox() )) {
+			textHelp.color = "white";
+		}
+		else {
+			textHelp.color = "#cccccc";
+		}
+		
+
+		if(actionGame == 1) {				
+			if(pjs.mouseControl.isPeekObject( "LEFT", fireObject )) {
+				pools = pools - 1;
+				poolsInfo.text = "x" + pools;
+				houses3.y = 104;
+				houses4.y = 104;
+				weaFire.replay();
+				bangFire.setVisible( true );
+				
+				if(pjs.mouseControl.isPeekObject( "LEFT", enemyBody )) {
+					enemyHealth = enemyHealth - 1;
+				}
+			
+				if(pjs.mouseControl.isPeekObject( "LEFT", enemyHand )) {
+					enemyHealth = enemyHealth - 0.5;
+				}
+				
+
+
+			}
+			else {
+				houses3.y = 584;
+				houses4.y = 584;
+				bangFire.setVisible( false );
+			}
+		}
+		else {
+			houses3.y = 584;
+			houses4.y = 584;
+			bangFire.setVisible( false );
+		}
+		
+	}
+	
+	if (pools <= 0) {
+		poolsImage2.setVisible (true);
+		poolsImage.setVisible (false);
+		actionGame = 0;
+		pools = 0;
+		poolsInfo.color = "red";
+		poolsInfo.text = "x" + pools;
+		if(pjs.mouseControl.isPeekObject( "LEFT", fireObject )) {
+			cockFire.replay();
+		}
+	}
+	else {
+		poolsImage2.setVisible (false);
+		poolsImage.setVisible (true);
+		poolsInfo.color = "white";
+	}
+
+	if(friendlyCar.x >= 1100) {
+		enemyGameBollean = true;
+		friendlyCar.setVisible (false);	
+	}
+	else {
+		enemyGameBollean = false;
+	}	
+		
+	if(enemyGameBollean == true) {
+		enemyGame(3);
+	}
+		
+	if(enemyHealth <= 0) {	
+		cursorFun = 0;
+		enemyBody.move( point(0, 10) );
+		enemyHand.move( point(0, 10) );
+		enemyBody.rotateForAngle(100, 2);
+	}
+		
+	if(enemyBody.angle >= 100) {
+		
+		PlayerScore = PlayerScore + 1;
+		PlayerScoreSaver = PlayerScoreSaver + 1;
+		enemyHealth = 1;
+		enemyBody.move( point(0, 0) );
+		enemyHand.move( point(0, 0) );
+		enemyBody.y = 160;
+		enemyHand.y = 300;
+		enemyBody.x = 1028; 
+		enemyHand.x = 1083;
+		enemyGameSpeed = enemyGameSpeed - 0.1;
+		moveGameObjectSpeed = moveGameObjectSpeed - 0.01;
+		enemyBody.angle = 0;
+		cursorFun = 1;
+	}
+	
+	if(PlayerScoreSaver == 5) {
+		textHelp.text = "РАУНД " + rounds;
+		enemyBody.x = 1528; 
+		enemyHand.x = 1583;
+		cursorMouse.x = 33; 
+		cursorMouse.y = 590;
+		friendlyCarPoint.x = -850;
+		
+		if(friendlyCar.x <= -820) {
+			friendlyCar.setVisible (true);
+			PlayerHealth = 1;
+		}	
+		
+		if(PlayerHealth == 1) {
+			cursorFun = 0;
+			friendlyCarPoint.x = 300;
+		}
+		
+	}
+	
+	if(friendlyCarPoint.x == 300) {
+		textHelpPoint.x = 0;
+	}
+	else {
+		textHelpPoint.x = -800;
+	}
+	
+	if(pjs.mouseControl.isPeekObject( "LEFT", textHelp )){
+		actionGame = 1;
+		PlayerScoreSaver = 0;
+		friendlyCarPoint.x = 1500;
+		cursorFun = 1;
+		weaReset.play();
+		pools = 6;
+		poolsInfo.text = "x" + pools;
+		textHelp.text = "РАУНД ";
+		rounds = rounds + 1;		
+	}
+	
+	if(cursorFun == 1){
+		cursorMouse.moveTimeC( mouse.getPosition(), 15);
+		fireObject.x = 0;
+		mouse.setVisible(false);	
+	}
+	else {
+		fireObject.x = 850;
+		mouse.setVisible(true);
+	}
+	
+	if(stP == 1){
+		gameMusic.play();
+		startButton2.alpha = 1;
+		startGamePlayer(1.8);
+		startButton.move(point(20, 0));
+		startButton2.move(point(20, 0));	
+	}
+	
+	if(cursorFun == 1){
+		if(enemyBody.x <= 650.1) {
+			enemyBody.x = 650
+			if(enemyBody.x == 650) {
+				weaFire2.replay();
+				PlayerHealth = PlayerHealth - 1;
+				houses3.y = 104;
+				houses4.y = 104;
+			}
+			else {
+				houses3.y = 584;
+				houses4.y = 584;
+			}
+		}
+	}
+	
+	if(PlayerHealth <= 0) {
+		cursorFun = 0;
+		cursorMouse.x = 33; 
+		cursorMouse.y = 590;
+		body.move( point(0, 10) );
+		hand.move( point(0, 10) );
+		body.rotateForAngle(-90, 2);
+		if(body.y >= 500) {
+			gameOverPoint.x = 0;
+		}
+
+	}
+	
+	if(pjs.mouseControl.isInStatic( gameOver.getStaticBox() )) {
+		gameOver.color = "white";
+	}
+	else {
+		gameOver.color = "#aa0800";
+	}
+						
+	if(pjs.mouseControl.isPeekObject( "LEFT", gameOver )) {
+		rounds = 1;
+		textHelp.text = "РАУНД " + rounds;
+		vkPost();
+		pools = 1;
+		enemyGameSpeed = 0;
+		moveGameObjectSpeed = 0;
+		PlayerScore = 0;
+		PlayerHealth = 1;
+		body.y = 160;
+		hand.y = 300;
+		body.x = -380;
+		hand.x = -380;
+		PlayerScoreSaver = 5;
+		body.angle = 0;
+		gameOverPoint.x = -800;
+		stP = 1;
+	}
+	
+});
+
+game.startLoop('loaded');
+</script>
+</body>
+</html>
